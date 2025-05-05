@@ -1,29 +1,41 @@
 FROM python:3.6
 
 # Creating Application Source Code Directory
-RUN ...
+RUN mkdir -p /app
 
 # Setting Home Directory for containers
-WORKDIR ...
+WORKDIR /app
 
 # Copy src python files
-COPY ...
+COPY . /app
 
 # Installing python dependencies
-RUN ...
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # create directories for models and data
-RUN ...
-RUN ...
+RUN mkdir -p /app/models
+RUN mkdir -p /app/data
 
 # Preload the data
-RUN ...
+RUN python3 data_preload.py
 
 # Pretrain the models
-RUN ...
-RUN ...
-RUN ...
-RUN ...
+ENV DATASET=mnist
+ENV TYPE=ff
+RUN python3 train.py
+
+ENV DATASET=mnist
+ENV TYPE=cnn
+RUN python3 train.py
+
+ENV DATASET=kmnist
+ENV TYPE=ff
+RUN python3 train.py
+
+ENV DATASET=kmnist
+ENV TYPE=cnn
+RUN python3 train.py
 
 # Running Python Application
-CMD ...
+CMD ["python3", "classify.py"]
