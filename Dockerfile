@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.10
 
 # Creating Application Source Code Directory
 RUN mkdir -p /app
@@ -11,7 +11,7 @@ COPY . /app
 
 # Installing python dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # create directories for models and data
 RUN mkdir -p /app/models
