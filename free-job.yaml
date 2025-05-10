@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: free-job-
+  namespace: free-service
+spec:
+  template:
+    spec:
+      containers:
+      - name: free-container
+        image: twig818/classifier-image:latest
+        env:
+        - name: DATASET
+          value: "mnist"
+        - name: TYPE
+          value: "ff"
+        resources:
+          requests:
+            cpu: "0.9"
+          limits:
+            cpu: "0.9"
+      restartPolicy: Never

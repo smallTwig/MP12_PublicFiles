@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.7
 
 # Creating Application Source Code Directory
 RUN mkdir -p /app

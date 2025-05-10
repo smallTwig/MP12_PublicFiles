@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classifier-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: classifier
+  template:
+    metadata:
+      labels:
+        app: classifier
+    spec:
+      containers:
+      - name: mp12
+        image: mp12-image
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000  # 修改为你容器实际监听的端口
